@@ -1,1 +1,0 @@
-web: streamlit app:main
