@@ -32,32 +32,32 @@ for col_names in data.columns:
 st.number_input('missing_values', value=missing_values)
 input_list.append(missing_values)
 
-data['missing_values'] = missing_values
-data = data.drop(['target'], axis=1)
-cols = data.columns
+# data['missing_values'] = missing_values
+# data = data.drop(['target'], axis=1)
+# cols = data.columns
 
-X = pd.DataFrame.from_dict({'row': input_list}, orient='index',
-                       columns=cols)
+# X = pd.DataFrame.from_dict({'row': input_list}, orient='index',
+#                        columns=cols)
 
-cat_features = [row for row in X if 'cat' in row]
-def one_hot_encoding(train, input, cat_features):
-    '''Function to one-hot-encode categorical features'''
-    temp = pd.concat([train, input])
-    temp = pd.get_dummies(temp, columns = cat_features)
-    train = temp.iloc[:train.shape[0],:]
-    input = temp.iloc[train.shape[0]:, :]
-    return train, input
+# cat_features = [row for row in X if 'cat' in row]
+# def one_hot_encoding(train, input, cat_features):
+#     '''Function to one-hot-encode categorical features'''
+#     temp = pd.concat([train, input])
+#     temp = pd.get_dummies(temp, columns = cat_features)
+#     train = temp.iloc[:train.shape[0],:]
+#     input = temp.iloc[train.shape[0]:, :]
+#     return train, input
 
-X_train_pd, X = one_hot_encoding(data, X, cat_features)
+# X_train_pd, X = one_hot_encoding(data, X, cat_features)
 
-scaler = StandardScaler()
-scaler.fit(X_train_pd)
-X_train = scaler.transform(X_train_pd)
+# scaler = StandardScaler()
+# scaler.fit(X_train_pd)
+# X_train = scaler.transform(X_train_pd)
 
-if st.button('Make Prediction'):
-    inputs = np.expand_dims(X_train[0], 0)
-    prediction = best_xgboost_model.predict(inputs)
-    if (prediction[0] == 0):
-        st.write("Driver will not file the claim")
-    else:
-        st.write("Driver will file the claim")
+# if st.button('Make Prediction'):
+#     inputs = np.expand_dims(X_train[0], 0)
+#     prediction = best_xgboost_model.predict(inputs)
+#     if (prediction[0] == 0):
+#         st.write("Driver will not file the claim")
+#     else:
+#         st.write("Driver will file the claim")
